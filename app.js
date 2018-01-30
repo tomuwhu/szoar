@@ -49,7 +49,7 @@ app.get("/oktlist", (req, res) => {
       if (arr.length) {
           arr.forEach(okt => okt.pw="")
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
   } )
 } )
 app.post( '/firstconfig', (req, res) => {
@@ -118,7 +118,7 @@ app.get("/targylist", (req, res) => {
   Targy.find().sort({tnev: 1}).exec((err,arr) => {
       if (arr.length) {
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
   } )
 } )
 
@@ -167,7 +167,7 @@ app.get("/iplist", (req, res) => {
   Idopont.find().sort({idate: 1}).exec((err,arr) => {
       if (arr.length) {
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
   } )
 } )
 app.post("/delip", (req, res) => {

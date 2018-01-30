@@ -78,7 +78,6 @@ function MainCntl($route, $routeParams, $location, $scope, $http, $interval) {
 }
 function FirstcfgCntl($http, $location, $scope) { //fc
   this.submit = () => {
-     console.log(this.af)
      $http .post("/firstconfig",this.af)
            .then( res => {
                if (res.data._id) {
