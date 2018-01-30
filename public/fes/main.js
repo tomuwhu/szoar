@@ -90,10 +90,12 @@ function FirstcfgCntl($http, $location, $scope) { //fc
   }
 }
 function AdminCntl($routeParams,$http,$filter,$scope) {
+  this. diakok = []
   this.lw = globals.lw, this.name = "Adminisztráció"
   this.targyak = [], this.ipl = [], this.uip = { osz: 8 }
   this.oleny = {}
   $http.get("/oktlist").then( res => this.oktatok = res.data )
+  $http.get("/diaklist").then( res => this.diakok = res.data )
   $http.get("/targylist").then( res => this.targyak = res.data )
   $http.get("/iplist").then(res => {
         this.eho = {}, this.ipl = res.data
@@ -108,9 +110,14 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
   })
   this.ujoktfelv = () => {
       $http.post("/ujoktato",this.ujokt).then(res => {
-          //console.log(res.data)
           this.oktatok.push(res.data)
           this.oktatok.sort( ( a, b ) => ( +(a.nev > b.nev) || +(a.nev === b.nev) - 1 ) )
+      })
+  }
+  this.ujdiakfelv = () => {
+      $http.post("/ujdiak",this.ujdiak).then(res => {
+          this.diakok.push(res.data)
+          this.diakok.sort( ( a, b ) => ( +(a.nev > b.nev) || +(a.nev === b.nev) - 1 ) )
       })
   }
   this.szf = (date) => ( $filter('date')(date, "yy-MM") == this.szurd )

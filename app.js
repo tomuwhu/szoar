@@ -56,6 +56,25 @@ app.post( '/ujoktato', (req, res) => {
         }
     } else res.send( {epty: true} )
 })
+app.post( '/ujdiak', (req, res) => {
+    if ((typeof req.body.nev) !== 'undefined') {
+        if (req.body.modosit) {
+            User.find( {email: req.body.email } ).update(req.body).exec()
+            req.session.user=req.body
+            res.send( { oktmod: true } )
+        } else {
+            var ujoktato = req.body
+            ujoktato.jog = 1
+            var uo = new User( ujoktato )
+            uo.save( (err,cucc) => {
+                req.session.user = cucc
+                req.session.user.pw = ""
+                res.send( req.session.user )
+            })
+
+        }
+    } else res.send( {epty: true} )
+})
 app.get("/getst", (req, res) => {
   User.find({jog: 4}).exec((err,arr) => {
       if (arr.length) {
@@ -65,6 +84,14 @@ app.get("/getst", (req, res) => {
 } )
 app.get("/oktlist", (req, res) => {
   User.find({jog: 2}).sort({nev: 1}).exec((err,arr) => {
+      if (arr.length) {
+          arr.forEach(okt => okt.pw="")
+          res.send( arr )
+      } else res.send( {epty: true} )
+  } )
+} )
+app.get("/diaklist", (req, res) => {
+  User.find({jog: 1}).sort({nev: 1}).exec((err,arr) => {
       if (arr.length) {
           arr.forEach(okt => okt.pw="")
           res.send( arr )
