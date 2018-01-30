@@ -133,7 +133,9 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
           this.szurlist.sort( (a,b) => ( +(a > b) || +(a === b) - 1 ))
           qt.nap = globals.napnev[$filter('date')(qt.idate, "EEE", "+0000")]
           this.ipl.push(qt)
-          this.ipl.sort( ( a, b ) => ( parseInt($filter('date')(a.idate, "yyyyMMdd", "+0000"))-parseInt($filter('date')(b.idate, "yyyyMMdd", "+0000")) ) )
+          this.ipl.sort( ( a, b ) => (
+            parseInt($filter('date')(a.idate, "yyyyMMdd", "+0000"))-parseInt($filter('date')(b.idate, "yyyyMMdd", "+0000")) )
+          )
       } )
   }
   this.ipt = (rk,id) => {
