@@ -1,0 +1,15 @@
+      <center>
+      <div>
+      <form class='form w3-round' ng-submit='lw.sendlogin()' >
+      <h3>Bejelentkezés</h3>
+      <h6 class="w3-red" ng-if="wp">Hibás felhasználónév vagy jelszó</h6>
+      <input class='w3-input li' name='email' ng-model='lw.fd.email' type='email' placeholder='e-mail cím' autocomplete='username' required />
+      <input class='w3-input li' name='pw' ng-model='lw.fd.pw' placeholder='jelszó' type='password' autocomplete='current-password' required />
+      <br>
+      <input type="submit" class='w3-button w3-green w3-round' value='bejelentkezés'>
+      <br>
+      </form>
+      <br>
+      <div ng-if="lw.wp" class="w3-red">Hibás felhasználónév vagy hibás jelszó</div>
+      <br>
+      </div>

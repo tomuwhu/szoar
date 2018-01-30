@@ -1,0 +1,32 @@
+{
+  "name": "szoar",
+  "version": "1.0.1",
+  "description": "SzámPont course example",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon npm start"
+  },
+  "author": "Dr. Németh Tamás",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-es6-template-engine": "^2.0.2",
+    "express-session": "^1.15.6",
+    "mongoose": "^4.13.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomuwhu/szoar.git"
+  },
+  "keywords": [
+    "Számpont",
+    "Oktatás",
+    "Adminisztráció"
+  ],
+  "bugs": {
+    "url": "https://github.com/tomuwhu/szoar/issues"
+  },
+  "homepage": "https://github.com/tomuwhu/szoar#readme"
+}
