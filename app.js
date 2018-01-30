@@ -1,4 +1,4 @@
-var dbname="ures8", //database (dbnow) collections --> users, subjects, days
+var dbname="blank", //database (dbnow) collections --> users, subjects, days
     express = require('express'), bodyParser = require('body-parser'),
     frontend={ root: __dirname+'/frontend' },
     cookieParser = require('cookie-parser'),
@@ -40,17 +40,19 @@ var User = mongoose.model('user', {
 app.post( '/ujoktato', (req, res) => {
     if ((typeof req.body.nev) !== 'undefined') {
         if (req.body.modosit) {
+            /*
             User.find( {email: req.body.email } ).update(req.body).exec()
-            req.session.user=req.body
             res.send( { oktmod: true } )
+            */
+            console.log("oktató módosítás")
         } else {
             var ujoktato = req.body
             ujoktato.jog = 2
             var uo = new User( ujoktato )
             uo.save( (err,cucc) => {
-                req.session.user = cucc
-                req.session.user.pw = ""
-                res.send( req.session.user )
+                newuser = cucc
+                newuser.pw = ""
+                res.send( newuser )
             })
 
         }
@@ -59,17 +61,19 @@ app.post( '/ujoktato', (req, res) => {
 app.post( '/ujdiak', (req, res) => {
     if ((typeof req.body.nev) !== 'undefined') {
         if (req.body.modosit) {
+            /*
             User.find( {email: req.body.email } ).update(req.body).exec()
-            req.session.user=req.body
             res.send( { oktmod: true } )
+            */
+            console.log("diák módosítás")
         } else {
             var ujoktato = req.body
             ujoktato.jog = 1
             var uo = new User( ujoktato )
             uo.save( (err,cucc) => {
-                req.session.user = cucc
-                req.session.user.pw = ""
-                res.send( req.session.user )
+                newuser = cucc
+                newuser.pw = ""
+                res.send( newuser )
             })
 
         }
