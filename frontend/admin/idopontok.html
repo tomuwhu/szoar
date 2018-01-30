@@ -35,11 +35,11 @@
     <div class="w3-container w3-cell l" style='width: 80px;'>
       <b>Óraszám</b>
     </div>
-    <div class="w3-container w3-cell l" style='width: 215px;'>
+    <div class="w3-container w3-cell l">
       <b>Oktató</b>
     </div>
     <div class="w3-container w3-cell l">
-      <b>Tárgy</b>
+      <b>Tárgy &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
     </div>
     <div class="w3-container w3-cell l" style='width: 80px;'>
       <b>Óraszám</b>
@@ -56,8 +56,8 @@
     <div class="w3-container w3-cell c" style='width: 110px;'>
       <input ng-if="a.ipl[key].idate != a.ipl[key+1].idate" style='height:25px; width: 75px;' class="w3-input  w3-round w3-khaki n" ng-change="a.lag2(ip._id,ip.osz)" ng-model="ip.osz" type="number" min=0 max=10 />
     </div>
-    <div class="w3-container w3-cell l" style='width: 210px;'>
-      <select class="w3-select" style='width: 180px;' ng-model="ip.oktid" ng-change="a.setokt(ip._id,ip.oktid)">
+    <div class="w3-container w3-cell l">
+      <select class="w3-select" ng-model="ip.oktid" ng-change="a.setokt(ip._id,ip.oktid)">
         <option ng-value="okt._id" ng-repeat="okt in a.oktatok" ng-selected="okt._id==ip.oktid">{{okt.nev}}</option>
       </select>
     </div>
