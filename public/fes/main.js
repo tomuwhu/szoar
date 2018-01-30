@@ -93,6 +93,7 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
   this.lw = globals.lw, this.name = "Adminisztráció"
   this.uip = { osz: 8 }
   this.oleny = {}
+  this.dleny = {}  
   $http.get("/oktlist").then( res => {
       if (typeof res.data[0] !== 'undefined') this.oktatok = res.data
       else this.oktatok = []
