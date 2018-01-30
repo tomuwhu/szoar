@@ -74,6 +74,7 @@ function MainCntl($route, $routeParams, $location, $scope, $http, $interval) {
       $scope.jogsz = globals.jogsz["j"+globals.lw.jog.toString()]
   })
   $interval(sessrefresh, 100000)
+  sessrefresh()
   gettingstarted()
 }
 function FirstcfgCntl($http, $location, $scope) { //fc
@@ -105,6 +106,7 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
         this.szurlist=Object.values(this.eho)
         this.vanszurlist=!!(this.szurlist.length-1)
   })
+  this.ujokt = () => console.log("Ó")
   this.szf = (date) => ( $filter('date')(date, "yy-MM") == this.szurd )
   this.utf = (utc) => {
       $http.post("/ujtargy",utc).then(res => {
