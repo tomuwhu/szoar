@@ -3,15 +3,15 @@
   <div style="height:15px;"></div>
   <div class="w3-container w3-cell-row">
     <div class="w3-container w3-cell l" style='width: 680px; height:40px;'>
-      <input placeholder="név" style='width: 170px; height:40px;' />
-      <input placeholder="e-mail cím" style='width: 170px; height:40px;' />
-      <input type="date" style='width: 157px; height:40px;' />
-      <input placeholder="kezdeti jelszó" type="password" style='width: 120px; height:40px;' />
+      <input ng-model="a.ujokt.nev" placeholder="név" style='width: 170px; height:40px;' />
+      <input ng-model="a.ujokt.email" placeholder="e-mail cím" style='width: 170px; height:40px;' />
+      <input ng-model="a.ujokt.szd" type="date" style='width: 167px; height:40px;' />
+      <input ng-model="a.ujokt.pw" placeholder="kezdeti jelszó" type="password" style='width: 120px; height:40px;' />
     </div>
     <div class="w3-container w3-cell">
     </div>
     <div class="w3-container w3-cell l" style='width: 110px;'>
-      <button class="w3-button w3-red" ng-click="a.ujokt()">Felvesz</button>
+      <button class="w3-button w3-red" ng-click="a.ujoktfelv()">Felvesz</button>
     </div>
   </div>
   <div style="height:15px;"></div>
@@ -19,7 +19,7 @@
 <br>
 <div class="w3-container w3-round-large w3-blue-gray">
   <br>
-  <div ng-repeat="oktato in a.oktatok">
+  <div ng-repeat="oktato in a.oktatok" ng-if="a.oktatok.length">
     <div class="w3-container w3-round-large w3-blue">
       <div class="w3-container w3-cell-row cg" ng-click="a.oleny[oktato._id]=!a.oleny[oktato._id]">
         <div class="w3-container w3-cell l" style='width: 200px;'>

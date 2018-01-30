@@ -37,6 +37,25 @@ var User = mongoose.model('user', {
     szd:     { type: Date },
     updated: { type: Date, default: Date.now }
 })
+app.post( '/ujoktato', (req, res) => {
+    if ((typeof req.body.nev) !== 'undefined') {
+        if (req.body.modosit) {
+            User.find( {email: req.body.email } ).update(req.body).exec()
+            req.session.user=req.body
+            res.send( { oktmod: true } )
+        } else {
+            var ujoktato = req.body
+            ujoktato.jog = 2
+            var uo = new User( ujoktato )
+            uo.save( (err,cucc) => {
+                req.session.user = cucc
+                req.session.user.pw = ""
+                res.send( req.session.user )
+            })
+
+        }
+    } else res.send( {epty: true} )
+})
 app.get("/getst", (req, res) => {
   User.find({jog: 4}).exec((err,arr) => {
       if (arr.length) {
@@ -71,19 +90,6 @@ app.post( '/firstconfig', (req, res) => {
 
 } )
 app.post( '/session', (req, res) => {
-    /*
-    if ((typeof req.body.nev) !== 'undefined') {
-        if (req.body.modosit) {
-            User.find( {email: req.body.email } ).update(req.body).exec()
-            req.session.user=req.body
-        } else {
-            var uu = new User( req.body )
-            uu.save()
-            req.session.user=req.body
-        }
-        res.send( req.session.user )
-    }
-    */
     User.find( {email: req.body.email, pw: req.body.pw} ).exec((err,arr) => {
         if (arr.length) {
             req.session.user=arr[0]

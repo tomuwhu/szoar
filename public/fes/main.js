@@ -106,7 +106,13 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
         this.szurlist=Object.values(this.eho)
         this.vanszurlist=!!(this.szurlist.length-1)
   })
-  this.ujokt = () => console.log("Ó")
+  this.ujoktfelv = () => {
+      $http.post("/ujoktato",this.ujokt).then(res => {
+          //console.log(res.data)
+          this.oktatok.push(res.data)
+          this.oktatok.sort( ( a, b ) => ( +(a.nev > b.nev) || +(a.nev === b.nev) - 1 ) )
+      })
+  }
   this.szf = (date) => ( $filter('date')(date, "yy-MM") == this.szurd )
   this.utf = (utc) => {
       $http.post("/ujtargy",utc).then(res => {
