@@ -1,0 +1,43 @@
+<center><h2>{{a.name}} - Oktatók kezelése</h2>
+<div class="w3-container w3-round-large w3-blue-gray l">
+  <div style="height:15px;"></div>
+  <div class="w3-container w3-cell-row">
+    <div class="w3-container w3-cell l" style='width: 230px;'>
+      <input class="w3-input" />
+    </div>
+    <div class="w3-container w3-cell l" style='width: 270px;'>
+      <input class="w3-input" />
+    </div>
+    <div class="w3-container w3-cell l" style='width: 200px;'>
+      <input type="date" class="w3-input" />
+    </div>
+    <div class="w3-container w3-cell">
+    </div>
+  </div>
+  <div style="height:15px;"></div>
+</div>
+<br>
+<div class="w3-container w3-round-large w3-blue-gray">
+  <br>
+  <div ng-repeat="oktato in a.oktatok">
+    <div class="w3-container w3-round-large w3-blue">
+      <div class="w3-container w3-cell-row cg" ng-click="a.oleny[oktato._id]=!a.oleny[oktato._id]">
+        <div class="w3-container w3-cell l" style='width: 200px;'>
+          {{oktato.nev}}
+        </div>
+        <div class="w3-container w3-cell l" style='width: 200px;'>
+          {{oktato.email}}
+        </div>
+        <div class="w3-container w3-cell l" style='width: 60px;'>
+          '{{oktato.szd | date: "yy"}}
+        </div>
+        <div class="w3-container w3-cell">
+        </div>
+      </div>
+    </div>
+    <div ng-if="a.oleny[oktato._id]"><br><br><h3>Oktató adatlap</h3><br></div>
+    <div style="height:5px;"></div>
+  </div>
+  <div style="height:15px;"></div>
+</div>
+<br>

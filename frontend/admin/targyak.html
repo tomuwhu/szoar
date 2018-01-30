@@ -1,0 +1,40 @@
+<center><h2>{{a.name}} - Tárgyak / Modulok kezelése</h2>
+<div class="w3-container w3-round-large w3-blue-gray">
+  <br>
+  <form name='utr'>
+  <div class="w3-container w3-cell-row">
+    <br>
+    <div class="w3-container w3-cell" style='width: 600px;'>
+      <input class="w3-input" placeholder="Új tárgy / modul" ng-model="ut.tnev" required/>
+    </div>
+    <div class="w3-container w3-cell" style='width: 100px;'>
+      <input class="w3-input n" placeholder="Össz óraszám" ng-model="ut.osz" type="number" min=0 max=300 required />
+    </div>
+    <div class="w3-container w3-cell">
+      <button class="w3-button w3-red w3-round" ng-click="a.utf(ut)" ng-if="utr.$valid"> Felvesz</button>
+    </div>
+  </div>
+  </form>
+  <br>
+</div>
+<hr>
+<div class="w3-container w3-round-large  w3-blue-gray">
+  <br>
+
+  <div class="w3-container w3-cell-row" ng-repeat="(key,targy) in a.targyak">
+    <br>
+    <div class="w3-container w3-cell" style='width: 600px;'>
+      <input class="w3-input 	w3-2017-shaded-spruce" ng-change="a.lag(key)" ng-model="targy.tnev" />
+    </div>
+    <div class="w3-container w3-cell" style='width: 100px;'>
+      <input class="w3-input 	w3-2017-shaded-spruce n" ng-change="a.lag(key)" ng-model="targy.osz" type="number" min=0 max=300 />
+    </div>
+    <div class="w3-container w3-cell">
+      <button class="w3-button w3-red w3-round" ng-click="a.chtn(key)" ng-if="targy.lg">Módosít</button>
+    </div>
+    <hr>
+  </div>
+
+  <br>
+</div>
+<br>

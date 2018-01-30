@@ -1,0 +1,32 @@
+.c {
+    text-align: center;
+    vertical-align: middle;
+}
+.l {
+    text-align: left;
+    vertical-align: middle;
+}
+.r {
+    text-align: right;
+    vertical-align: middle;
+}
+.click {
+    cursor: pointer;
+}
+.cg {
+    cursor: pointer;
+}
+.cg:hover {
+    color:#abc;
+}
+.form {
+    width:300px;
+    transition:all linear 0.5s;
+    background-color: rgba(50,225,50,0.9);
+}
+.form.ng-invalid {
+    background-color: rgba(255,100,100,0.9);
+}
+input.n {
+    text-align: right;
+}
