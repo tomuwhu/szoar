@@ -38,7 +38,7 @@ angular.module('ngView', ['ngRoute'],
         })
         $routeProvider.when('/login', {
           templateUrl: 'log', templateName: 'Bejelentkezési ablak',
-          controller: LiCntl, controllerAs: 'lw'
+          controller: LoginwindowCntl, controllerAs: 'lw'
         })
         $routeProvider.otherwise('/')
         $locationProvider.html5Mode(true)
@@ -88,8 +88,6 @@ function FirstcfgCntl($http, $location, $scope) { //fc
             } )
   }
 }
-
-
 function AdminCntl($routeParams,$http,$filter,$scope) {
   this.lw = globals.lw, this.name = "Adminisztráció"
   this.targyak = [], this.ipl = [], this.uip = { osz: 8 }
@@ -182,12 +180,10 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
   }
   this.params = $routeParams
 }
-
 function KezdolapCntl($routeParams) {
   this.lw = globals.lw
 }
-
-function LiCntl($routeParams,$http,$interval,$location,$scope) {
+function LoginwindowCntl($routeParams,$http,$interval,$location,$scope) {
   this.deletealert = () => this.wp=false
   this.sendlogin = () => {
       $http .post("/session",this.fd)
