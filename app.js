@@ -21,6 +21,7 @@ app.get( '/logout', (req, res) => res.redirect( '/' ) )
 // router angular template-ek
 app.get( '/ps1', (req, res) => res.sendFile('main.html', frontend) )
 app.get( '/log', (req, res) => res.sendFile('login.html', frontend) )
+app.get( '/a_fc', (req, res) => res.sendFile('admin/setup.html', frontend) )
 app.get( '/a_targyak', (req, res) => res.sendFile('admin/targyak.html', frontend) )
 app.get( '/a_oktatok', (req, res) => res.sendFile('admin/oktatok.html', frontend) )
 app.get( '/a_hallgatok', (req, res) => res.sendFile('admin/hallgatok.html', frontend) )
@@ -36,6 +37,13 @@ var User = mongoose.model('user', {
     szd:     { type: Date },
     updated: { type: Date, default: Date.now }
 })
+app.get("/getst", (req, res) => {
+  User.find({jog: 4}).exec((err,arr) => {
+      if (arr.length) {
+          res.send( {nau: false} )
+      } else res.send( {nau: true} )
+  } )
+} )
 app.get("/oktlist", (req, res) => {
   User.find({jog: 2}).sort({nev: 1}).exec((err,arr) => {
       if (arr.length) {
@@ -43,6 +51,24 @@ app.get("/oktlist", (req, res) => {
           res.send( arr )
       }
   } )
+} )
+app.post( '/firstconfig', (req, res) => {
+    User.find().exec((err,arr) => {
+        if (arr.length == 0) {
+          ujadmin = req.body
+          ujadmin.jog = 4
+          var ua = new User( ujadmin )
+          ua.save((err,cucc) => {
+              if (err) console.log(err.errmsg)
+              else {
+                  req.session.user = cucc
+                  req.session.user.pw=''
+                  res.send( req.session.user )
+              }
+          })
+        }
+    } )
+
 } )
 app.post( '/session', (req, res) => {
     /*

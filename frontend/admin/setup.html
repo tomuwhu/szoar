@@ -1,0 +1,29 @@
+<div>
+  <center>
+    <h1 class="w3-container w3-2017-golden-lime w3-round-large" style="width:80px; height:60px; vertical-align:bottom;">
+        &#120587;A
+    </h1>
+    <div class="w3-container w3-white w3-round">
+      <a href="http://www.szam.hu/" target="_blank" >
+        <img src="images/szampont.png" />
+      </a>
+    </div>
+    <h2 class="w3-container w3-2017-grenadine w3-round-large">Oktatási Adminisztrációs Rendszer kezdeti beállítása</h2>
+    <div style="height:15px;"></div>
+    <div class="w3-container w3-2017-kale w3-round-large"><h4>Admin felhasználó felvétele</h4>
+        <form name="ca" class="form w3-round w3-container" ng-submit='fc.submit()' style='width: 250px;'>
+              <div style="height:25px;"></div>
+              <input class="w3-input" placeholder="Név" autocomplete="name" ng-model="fc.af.nev" required />
+              <div style="height:10px;"></div>
+              <input class="w3-input" placeholder="E-mail cím" type="email" autocomplete="email" ng-model="fc.af.email" required />
+              <div style="height:10px;"></div>
+              <input type="password" class="w3-input" placeholder="Kezdeti jelszó" autocomplete="current-password" ng-model="fc.af.pw" required />
+              <div style="height:10px;"></div>
+              <button class="w3-button w3-red w3-round" ng-if="ca.$valid">Rögzít</button>
+              <div style="height:10px;"></div>
+        </form>
+        <div style="height:25px;"></div>
+    </div>
+    <div style="height:25px;"></div>
+  </center>
+</div>

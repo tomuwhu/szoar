@@ -29,7 +29,8 @@
         <a href="/admin/idopontok" class="w3-bar-item w3-button w3-text-black">Időpontok</a>
       </div>
     </div>
-    <a href="login" class="w3-bar-item w3-button w3-right" ng-if="jog==0">Bejelentkezés</i></a>
+    <a href="admin/firstconfig" class="w3-bar-item w3-button w3-right" ng-if="nau && (jog==0)">Kezdő lépések - beállítás</i></a>
+    <a href="login" class="w3-bar-item w3-button w3-right" ng-if="jog==0 && !nau">Bejelentkezés</i></a>
     <c ng-click="logout()" class="w3-bar-item w3-button w3-right" ng-if="jog>0">Kijelentkezés</i></c>
     </div>
 

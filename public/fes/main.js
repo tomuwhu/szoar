@@ -16,6 +16,10 @@ angular.module('ngView', ['ngRoute'],
           templateUrl: 'ps1', templateName: 'Kezdőlap',
           controller: KezdolapCntl, controllerAs: 'p1'
         })
+        $routeProvider.when('/admin/firstconfig', {
+          templateUrl: 'a_fc', templateName: 'Adminisztráció: beállítás',
+          controller: FirstcfgCntl, controllerAs: 'fc'
+        })
         $routeProvider.when('/admin/targyak', {
           templateUrl: 'a_targyak', templateName: 'Adminisztráció: tárgyak',
           controller: AdminCntl,    controllerAs: 'a'
@@ -26,11 +30,11 @@ angular.module('ngView', ['ngRoute'],
         })
         $routeProvider.when('/admin/hallgatok', {
           templateUrl: 'a_hallgatok', templateName: 'Adminisztráció: hallgatók',
-          controller: AdminCntl,      controllerAs: 'a'
+          controller: AdminCntl,    controllerAs: 'a'
         })
         $routeProvider.when('/admin/idopontok', {
           templateUrl: 'a_idopontok', templateName: 'Adminisztráció: időpontok',
-          controller: AdminCntl,      controllerAs: 'a'
+          controller: AdminCntl,    controllerAs: 'a'
         })
         $routeProvider.when('/login', {
           templateUrl: 'log', templateName: 'Bejelentkezési ablak',
@@ -58,14 +62,34 @@ function MainCntl($route, $routeParams, $location, $scope, $http, $interval) {
               }
            })
   }
+  gettingstarted = () => {
+    $http .get("/getst")
+          .then( res => {
+              $scope.nau=res.data.nau
+           })
+  }
   $scope.$on('$viewContentLoaded', () => {
       $scope.msg = $route.current.templateName + ' betöltve.'
       $scope.jog = globals.lw.jog
       $scope.jogsz = globals.jogsz["j"+globals.lw.jog.toString()]
   })
   $interval(sessrefresh, 100000)
-  sessrefresh()
+  gettingstarted()
 }
+function FirstcfgCntl($http, $location, $scope) { //fc
+  this.submit = () => {
+     console.log(this.af)
+     $http .post("/firstconfig",this.af)
+           .then( res => {
+               if (res.data._id) {
+                   globals.lw = res.data
+                   $scope.nau = false
+                   $location.path( "/" )
+               }
+            } )
+  }
+}
+
 
 function AdminCntl($routeParams,$http,$filter,$scope) {
   this.lw = globals.lw, this.name = "Adminisztráció"
