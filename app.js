@@ -1,4 +1,5 @@
-var express = require('express'), bodyParser = require('body-parser'),
+var dbname="blank", //database (dbnow) collections --> users, subjects, days
+    express = require('express'), bodyParser = require('body-parser'),
     frontend={ root: __dirname+'/frontend' },
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
@@ -8,7 +9,7 @@ app .use(bodyParser.json()).use(cookieParser())
         resave: true, saveUninitialized: true,
         secret: 'ABC123', cookie: { maxAge: 600000 }
     }))
-mongoose.connect('mongodb://localhost/dbnow', { useMongoClient: true })
+mongoose.connect('mongodb://localhost/'+dbname, { useMongoClient: true })
 mongoose.Promise = global.Promise
 
 // router redirect
@@ -27,7 +28,7 @@ app.get( '/a_idopontok', (req, res) => res.sendFile('admin/idopontok.html', fron
 app.get( '/session', (req, res) => res.send( req.session.user) )
 
 //felhasználók: adminok / tanárok / diákok
-var User = mongoose.model('allat', {
+var User = mongoose.model('user', {
     email:   { type: String, trim: true, index: true, unique: true, lowercase: true },
     pw:      { type: String },
     nev:     { type: String, trim: true },
