@@ -1,4 +1,4 @@
-var dbname="blank", //database (dbnow) collections --> users, subjects, days
+var dbname="ures8", //database (dbnow) collections --> users, subjects, days
     express = require('express'), bodyParser = require('body-parser'),
     frontend={ root: __dirname+'/frontend' },
     cookieParser = require('cookie-parser'),

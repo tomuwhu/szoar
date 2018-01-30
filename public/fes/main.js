@@ -90,15 +90,25 @@ function FirstcfgCntl($http, $location, $scope) { //fc
   }
 }
 function AdminCntl($routeParams,$http,$filter,$scope) {
-  this. diakok = []
   this.lw = globals.lw, this.name = "Adminisztráció"
-  this.targyak = [], this.ipl = [], this.uip = { osz: 8 }
+  this.uip = { osz: 8 }
   this.oleny = {}
-  $http.get("/oktlist").then( res => this.oktatok = res.data )
-  $http.get("/diaklist").then( res => this.diakok = res.data )
-  $http.get("/targylist").then( res => this.targyak = res.data )
+  $http.get("/oktlist").then( res => {
+      if (typeof res.data[0] !== 'undefined') this.oktatok = res.data
+      else this.oktatok = []
+  } )
+  $http.get("/diaklist").then( res => {
+      if (typeof res.data[0] !== 'undefined') this.diakok = res.data
+      else this.diakok = []
+  } )
+  $http.get("/targylist").then( res => {
+      if (typeof res.data[0] !== 'undefined') this.targyak = res.data
+      else this.targyak = []
+  } )
   $http.get("/iplist").then(res => {
-        this.eho = {}, this.ipl = res.data
+        this.eho = {}
+        if (typeof res.data[0] !== 'undefined') this.ipl = res.data
+        else this.ipl = []
         this.ipl.forEach( (d,k) => {
             this.eho["h"+$filter('date')(d.idate, "yy-MM")]=$filter('date')(d.idate, "yy-MM")
             this.szurd = $filter('date')(d.idate, "yy-MM")
@@ -112,22 +122,22 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
       $http.post("/ujoktato",this.ujokt).then(res => {
           this.oktatok.push(res.data)
           this.oktatok.sort( ( a, b ) => ( +(a.nev > b.nev) || +(a.nev === b.nev) - 1 ) )
+          this.ujokt = {}
       })
   }
   this.ujdiakfelv = () => {
       $http.post("/ujdiak",this.ujdiak).then(res => {
           this.diakok.push(res.data)
           this.diakok.sort( ( a, b ) => ( +(a.nev > b.nev) || +(a.nev === b.nev) - 1 ) )
+          this.ujdiak = {}
       })
   }
   this.szf = (date) => ( $filter('date')(date, "yy-MM") == this.szurd )
   this.utf = (utc) => {
       $http.post("/ujtargy",utc).then(res => {
-          at = this.targyak
-          at.push(res.data)
-          this.targyak = at.sort( ( a, b ) => ( +(a.tnev > b.tnev) || +(a.tnev === b.tnev) - 1 ) )
-          $scope.ut.tnev = ""
-          $scope.ut.osz = null
+          this.targyak.push(res.data)
+          this.targyak.sort( ( a, b ) => ( +(a.tnev > b.tnev) || +(a.tnev === b.tnev) - 1 ) )
+          $scope.ut = {}
       })
   }
   this.uipf = (uip) => {
