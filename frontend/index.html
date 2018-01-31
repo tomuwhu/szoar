@@ -7,6 +7,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2017.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="fes/main.js"></script>
     <link rel="stylesheet" type="text/css" href="css/root.css" />
     <script type="text/javascript">
@@ -16,7 +17,7 @@
   <body ng-controller="MainCntl as main">
 
     <!--Menü-->
-    <div class="w3-bar w3-dark-grey">
+    <div class="w3-bar w3-orange">
     <a href="/" class="w3-bar-item w3-button">Kezdőlap</a>
     <div class="w3-dropdown-hover w3-hide-small" ng-if="jog % 8 >= 4">
       <button class="w3-button">
@@ -34,7 +35,6 @@
     <c ng-click="logout()" class="w3-bar-item w3-button w3-right" ng-if="jog>0">Kijelentkezés</i></c>
     </div>
 
-
     <div class="w3-container w3-dark-gray">
       <br>
       <div class="w3-container w3-pale-yellow w3-round-large">
@@ -42,7 +42,6 @@
       </div>
       <center><i ng-bind="msg"></i> (<i ng-bind="jogsz"></i>)
     </div>
-
 
   </body>
 </html>
