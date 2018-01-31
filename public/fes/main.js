@@ -93,7 +93,7 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
   this.lw = globals.lw, this.name = "Adminisztráció"
   this.uip = { osz: 8 }
   this.oleny = {}
-  this.dleny = {}  
+  this.dleny = {}
   $http.get("/oktlist").then( res => {
       if (typeof res.data[0] !== 'undefined') this.oktatok = res.data
       else this.oktatok = []
@@ -117,7 +117,8 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
             d.nap = globals.napnev[$filter('date')(d.idate, "EEE", "+0000")]
         })
         this.szurlist=Object.values(this.eho)
-        this.vanszurlist=!!(this.szurlist.length-1)
+        if (this.szurlist.length>1) this.vanszurlist=true
+        else this.vanszurlist=false
   })
   this.ujoktfelv = () => {
       $http.post("/ujoktato",this.ujokt).then(res => {
@@ -151,7 +152,8 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
           qt = res.data
           this.eho["h"+$filter('date')(qt.idate, "yy-MM")]=$filter('date')(qt.idate, "yy-MM")
           this.szurlist = Object.values(this.eho)
-          if (this.szurlist.length-1) this.vanszurlist=true
+          if (this.szurlist.length>1) this.vanszurlist=true
+          else this.vanszurlist=false
           this.szurd = $filter('date')(qt.idate, "yy-MM")
           this.szurlist.sort( (a,b) => ( +(a > b) || +(a === b) - 1 ))
           qt.nap = globals.napnev[$filter('date')(qt.idate, "EEE", "+0000")]
@@ -164,6 +166,21 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
   this.ipt = (rk,id) => {
       $http.post("/delip", {tid: id}).then( res => {
           if (res.data.jo==1) this.ipl.splice(rk,1)
+          this.eho = {}
+          this.szurlist = []
+          dn = ""
+          this.ipl.forEach( (d,k) => {
+              this.eho["h"+$filter('date')(d.idate, "yy-MM")]=$filter('date')(d.idate, "yy-MM")
+              dn = $filter('date')(d.idate, "yy-MM")
+              if (!d.oszrow) d.oszrow = d.osz
+              d.nap = globals.napnev[$filter('date')(d.idate, "EEE", "+0000")]
+          })
+          this.szurlist=Object.values(this.eho)
+          if (this.szurlist.length>1) this.vanszurlist=true
+          else {
+              this.vanszurlist=false
+              this.szurd = dn
+          }
       } )
   }
   this.setokt = (ipid,oktid) => {
