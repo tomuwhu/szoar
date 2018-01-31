@@ -1,1 +1,43 @@
-<center><h2>{{a.name}} - Diákok kezelése</h2>
+  <center><h2>{{a.name}} - Diákok kezelése</h2>
+  <div class="w3-container w3-round-large w3-blue-gray l">
+    <div style="height:15px;"></div>
+    <div class="w3-container w3-cell-row">
+      <div class="w3-container w3-cell l" style='width: 680px; height:40px;'>
+        <input ng-model="a.ujdiak.nev" placeholder="név" style='width: 170px; height:40px;' />
+        <input ng-model="a.ujdiak.email" placeholder="e-mail cím" style='width: 170px; height:40px;' />
+        <input ng-model="a.ujdiak.szd" type="date" style='width: 167px; height:40px;' />
+        <input ng-model="a.ujdiak.pw" placeholder="kezdeti jelszó" type="password" style='width: 120px; height:40px;' />
+      </div>
+      <div class="w3-container w3-cell">
+      </div>
+      <div class="w3-container w3-cell l" style='width: 110px;'>
+        <button class="w3-button w3-red" ng-click="a.ujdiakfelv()" ng-if="a.ujdiak.email && a.ujdiak.pw">Felvesz</button>
+      </div>
+    </div>
+    <div style="height:15px;"></div>
+  </div>
+  <br>
+  <div class="w3-container w3-round-large w3-blue-gray">
+    <br>
+    <div ng-repeat="diak in a.diakok" ng-if="a.diakok.length">
+      <div class="w3-container w3-round-large w3-blue">
+        <div class="w3-container w3-cell-row cg" ng-click="a.dleny[diak._id]=!a.dleny[diak._id]">
+          <div class="w3-container w3-cell l" style='width: 200px;'>
+            {{diak.nev}}
+          </div>
+          <div class="w3-container w3-cell l" style='width: 200px;'>
+            {{diak.email}}
+          </div>
+          <div class="w3-container w3-cell l" style='width: 90px;'>
+            '{{diak.szd | date: "yy.MM"}}
+          </div>
+          <div class="w3-container w3-cell">
+          </div>
+        </div>
+      </div>
+      <div ng-if="a.dleny[diak._id]"><br><h3>Diák adatlap</h3><br></div>
+      <div style="height:5px;"></div>
+    </div>
+    <div style="height:15px;"></div>
+  </div>
+  <br>

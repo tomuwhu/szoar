@@ -37,6 +37,48 @@ var User = mongoose.model('user', {
     szd:     { type: Date },
     updated: { type: Date, default: Date.now }
 })
+app.post( '/ujoktato', (req, res) => {
+    if ((typeof req.body.nev) !== 'undefined') {
+        if (req.body.modosit) {
+            /*
+            User.find( {email: req.body.email } ).update(req.body).exec()
+            res.send( { oktmod: true } )
+            */
+            console.log("oktató módosítás")
+        } else {
+            var ujoktato = req.body
+            ujoktato.jog = 2
+            var uo = new User( ujoktato )
+            uo.save( (err,cucc) => {
+                newuser = cucc
+                newuser.pw = ""
+                res.send( newuser )
+            })
+
+        }
+    } else res.send( {epty: true} )
+})
+app.post( '/ujdiak', (req, res) => {
+    if ((typeof req.body.nev) !== 'undefined') {
+        if (req.body.modosit) {
+            /*
+            User.find( {email: req.body.email } ).update(req.body).exec()
+            res.send( { oktmod: true } )
+            */
+            console.log("diák módosítás")
+        } else {
+            var ujoktato = req.body
+            ujoktato.jog = 1
+            var uo = new User( ujoktato )
+            uo.save( (err,cucc) => {
+                newuser = cucc
+                newuser.pw = ""
+                res.send( newuser )
+            })
+
+        }
+    } else res.send( {epty: true} )
+})
 app.get("/getst", (req, res) => {
   User.find({jog: 4}).exec((err,arr) => {
       if (arr.length) {
@@ -49,7 +91,15 @@ app.get("/oktlist", (req, res) => {
       if (arr.length) {
           arr.forEach(okt => okt.pw="")
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
+  } )
+} )
+app.get("/diaklist", (req, res) => {
+  User.find({jog: 1}).sort({nev: 1}).exec((err,arr) => {
+      if (arr.length) {
+          arr.forEach(okt => okt.pw="")
+          res.send( arr )
+      } else res.send( {epty: true} )
   } )
 } )
 app.post( '/firstconfig', (req, res) => {
@@ -71,19 +121,6 @@ app.post( '/firstconfig', (req, res) => {
 
 } )
 app.post( '/session', (req, res) => {
-    /*
-    if ((typeof req.body.nev) !== 'undefined') {
-        if (req.body.modosit) {
-            User.find( {email: req.body.email } ).update(req.body).exec()
-            req.session.user=req.body
-        } else {
-            var uu = new User( req.body )
-            uu.save()
-            req.session.user=req.body
-        }
-        res.send( req.session.user )
-    }
-    */
     User.find( {email: req.body.email, pw: req.body.pw} ).exec((err,arr) => {
         if (arr.length) {
             req.session.user=arr[0]
@@ -118,7 +155,7 @@ app.get("/targylist", (req, res) => {
   Targy.find().sort({tnev: 1}).exec((err,arr) => {
       if (arr.length) {
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
   } )
 } )
 
@@ -167,7 +204,7 @@ app.get("/iplist", (req, res) => {
   Idopont.find().sort({idate: 1}).exec((err,arr) => {
       if (arr.length) {
           res.send( arr )
-      }
+      } else res.send( {epty: true} )
   } )
 } )
 app.post("/delip", (req, res) => {
