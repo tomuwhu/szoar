@@ -4,7 +4,6 @@ var globals = {
   napnev : { Mon : "Hétfő",  Tue : "Kedd",    Wed : "Szerda",  Thu : "Csütörtök",
              Fri : "Péntek", Sat : "Szombat", Sun : "Vasárnap" }
 }
-
 //routes
 angular.module('ngView', ['ngRoute'],
     function($routeProvider, $locationProvider) {
@@ -44,7 +43,6 @@ angular.module('ngView', ['ngRoute'],
         $locationProvider.html5Mode(true)
     }
 )
-
 //controllers
 function MainCntl($route, $routeParams, $location, $scope, $http, $interval) {
   $scope.logout = () => {
