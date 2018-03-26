@@ -5,10 +5,14 @@
   <div class="w3-container w3-cell-row">
     <br>
     <div class="w3-container w3-cell" style='width: 140px;'>
-      <input class="w3-input" placeholder="Új időpont" ng-model="a.uip.idate" type="date" required />
+      <input  class="w3-input" placeholder="Új időpont"
+              ng-model="a.uip.idate" type="date" required />
     </div>
     <div class="w3-container w3-cell" style='width: 140px;'>
-      <input class="w3-input n" placeholder="Napi óraszám" ng-model="a.uip.osz" type="number" min=0 max=10 required />
+      <input  class="w3-input n" placeholder="Napi óraszám"
+              ng-model="a.uip.osz"
+              type="number" min=0 max=10
+              required />
     </div>
     <div class="w3-container w3-cell">
       <span ng-repeat="ho in a.szurlist" ng-if="a.vanszurlist">
@@ -16,7 +20,9 @@
       </span>
     </div>
     <div class="w3-container w3-cell" style='width: 140px;'>
-      <button class="w3-button w3-red w3-round" ng-click="a.uipf(a.uip)" ng-if="uip.$valid">Felvesz</button>
+      <button class="w3-button w3-red w3-round"
+              ng-click="a.uipf(a.uip)"
+              ng-if="uip.$valid">Felvesz</button>
     </div>
   </div>
   </form>
@@ -51,27 +57,40 @@
   <div class="w3-container w3-cell-row" ng-repeat="(key,ip) in a.ipl" ng-if="a.szf(ip.idate)">
     <br>
     <div class="w3-container w3-cell l" style='width: 220px;'>
-      <div ng-if="a.ipl[key].idate != a.ipl[key-1].idate">{{ip.idate | date: 'yyyy. MM. dd.'}} {{ip.nap}}</div>
+      <div ng-if="a.ipl[key].idate != a.ipl[key-1].idate">
+        {{ip.idate | date: 'yyyy. MM. dd.'}} {{ip.nap}}
+      </div>
     </div>
     <div class="w3-container w3-cell c" style='width: 110px;'>
-      <input ng-if="a.ipl[key].idate != a.ipl[key+1].idate" style='height:25px; width: 75px;' class="w3-input  w3-round w3-khaki n" ng-change="a.lag2(ip._id,ip.osz)" ng-model="ip.osz" type="number" min=0 max=10 />
+      <input  ng-if="a.ipl[key].idate != a.ipl[key+1].idate"
+              style='height:25px; width: 75px;'
+              class="w3-input  w3-round w3-khaki n"
+              ng-change="a.lag2(ip._id,ip.osz)"
+              ng-model="ip.osz"
+              type="number" min=0 max=10 />
     </div>
     <div class="w3-container w3-cell l">
       <select class="w3-select" ng-model="ip.oktid" ng-change="a.setokt(ip._id,ip.oktid)">
-        <option ng-value="okt._id" ng-repeat="okt in a.oktatok" ng-selected="okt._id==ip.oktid">{{okt.nev}}</option>
+        <option   ng-value="okt._id" ng-repeat="okt in a.oktatok"
+                  ng-selected="okt._id==ip.oktid">{{okt.nev}}</option>
       </select>
     </div>
     <div class="w3-container w3-cell l">
       <select class="w3-select" ng-model="ip.targyid" ng-change="a.settargy(ip._id,ip.targyid)">
-        <option ng-value="targy._id" ng-repeat="targy in a.targyak" ng-selected="targy._id==ip.targyid">{{targy.tnev}}</option>
+        <option ng-value="targy._id" ng-repeat="targy in a.targyak"
+                ng-selected="targy._id==ip.targyid">{{targy.tnev}}</option>
       </select>
     </div>
     <div class="w3-container w3-cell c" style='width: 80px;'>
-      <input class="w3-input w3-sand w3-round n" style='height:25px; width: 75px;' ng-change="a.lag3(ip._id,ip.oszrow)" ng-model="ip.oszrow" type="number" min=0 max=10 />
+      <input  class="w3-input w3-sand w3-round n" style='height:25px; width: 75px;'
+              ng-change="a.lag3(ip._id,ip.oszrow)" ng-model="ip.oszrow"
+              type="number" min=0 max=10 />
     </div>
     <div class="w3-container w3-cell c" style='width: 66px;'>
-      <big class="click" title="ürít" ng-click="a.deltargyokt(key,ip._id)" ng-if="(a.ipl[key].oktid || a.ipl[key].targyid)">&#8999;</big>
-      <big class="click" title="nap törlése" ng-click="a.ipt(key,ip._id)" ng-if="!(a.ipl[key].oktid || a.ipl[key].targyid)">&#10007;</big>
+      <big  class="click" title="ürít" ng-click="a.deltargyokt(key,ip._id)"
+            ng-if="(a.ipl[key].oktid || a.ipl[key].targyid)">&#8999;</big>
+      <big  class="click" title="nap törlése" ng-click="a.ipt(key,ip._id)"
+            ng-if="!(a.ipl[key].oktid || a.ipl[key].targyid)">&#10007;</big>
     </div>
   </div>
   <br>

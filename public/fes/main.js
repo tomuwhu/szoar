@@ -4,7 +4,6 @@ var globals = {
   napnev : { Mon : "Hétfő",  Tue : "Kedd",    Wed : "Szerda",  Thu : "Csütörtök",
              Fri : "Péntek", Sat : "Szombat", Sun : "Vasárnap" }
 }
-
 //routes
 angular.module('ngView', ['ngRoute'],
     function($routeProvider, $locationProvider) {
@@ -44,7 +43,6 @@ angular.module('ngView', ['ngRoute'],
         $locationProvider.html5Mode(true)
     }
 )
-
 //controllers
 function MainCntl($route, $routeParams, $location, $scope, $http, $interval) {
   $scope.logout = () => {
@@ -117,7 +115,8 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
             d.nap = globals.napnev[$filter('date')(d.idate, "EEE", "+0000")]
         })
         this.szurlist=Object.values(this.eho)
-        this.vanszurlist=!!(this.szurlist.length-1)
+        if (this.szurlist.length>1) this.vanszurlist=true
+        else this.vanszurlist=false
   })
   this.ujoktfelv = () => {
       $http.post("/ujoktato",this.ujokt).then(res => {
@@ -151,17 +150,35 @@ function AdminCntl($routeParams,$http,$filter,$scope) {
           qt = res.data
           this.eho["h"+$filter('date')(qt.idate, "yy-MM")]=$filter('date')(qt.idate, "yy-MM")
           this.szurlist = Object.values(this.eho)
-          if (this.szurlist.length-1) this.vanszurlist=true
+          if (this.szurlist.length>1) this.vanszurlist=true
+          else this.vanszurlist=false
           this.szurd = $filter('date')(qt.idate, "yy-MM")
           this.szurlist.sort( (a,b) => ( +(a > b) || +(a === b) - 1 ))
           qt.nap = globals.napnev[$filter('date')(qt.idate, "EEE", "+0000")]
           this.ipl.push(qt)
-          this.ipl.sort( ( a, b ) => ( parseInt($filter('date')(a.idate, "yyyyMMdd", "+0000"))-parseInt($filter('date')(b.idate, "yyyyMMdd", "+0000")) ) )
+          this.ipl.sort( ( a, b ) => (
+            parseInt($filter('date')(a.idate, "yyyyMMdd", "+0000"))-parseInt($filter('date')(b.idate, "yyyyMMdd", "+0000")) )
+          )
       } )
   }
   this.ipt = (rk,id) => {
       $http.post("/delip", {tid: id}).then( res => {
           if (res.data.jo==1) this.ipl.splice(rk,1)
+          this.eho = {}
+          this.szurlist = []
+          dn = ""
+          this.ipl.forEach( (d,k) => {
+              this.eho["h"+$filter('date')(d.idate, "yy-MM")]=$filter('date')(d.idate, "yy-MM")
+              dn = $filter('date')(d.idate, "yy-MM")
+              if (!d.oszrow) d.oszrow = d.osz
+              d.nap = globals.napnev[$filter('date')(d.idate, "EEE", "+0000")]
+          })
+          this.szurlist=Object.values(this.eho)
+          if (this.szurlist.length>1) this.vanszurlist=true
+          else {
+              this.vanszurlist=false
+              this.szurd = dn
+          }
       } )
   }
   this.setokt = (ipid,oktid) => {
