@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-es6-template-engine": "^2.0.2",
+    "express-pdf": "^1.2.2",
     "express-session": "^1.15.6",
     "mongoose": "^4.13.9"
   },

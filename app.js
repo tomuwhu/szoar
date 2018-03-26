@@ -3,12 +3,14 @@ var dbname="blank", //database name (collections --> users, subjects, days)
     frontend={ root: __dirname+'/frontend' },
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    mongoose = require('mongoose'), app = express()
+    mongoose = require('mongoose'),
+    pdf = require('express-pdf'), app = express()
 app .use(bodyParser.json()).use(cookieParser())
     .use(express.static('public')).use(session({
         resave: true, saveUninitialized: true,
         secret: 'ABC123', cookie: { maxAge: 600000 }
     }))
+    .use(pdf)
 mongoose.connect('mongodb://localhost/'+dbname, { useMongoClient: true })
 mongoose.Promise = global.Promise
 
@@ -207,6 +209,31 @@ app.get("/iplist", (req, res) => {
       } else res.send( {epty: true} )
   } )
 } )
+
+app.get( '/topdf', (req, res) => {
+
+        var s = "<html><body><table>"
+
+        Idopont.find().sort({idate: 1}).exec((err,arr) => {
+            if (arr.length) {
+                arr.forEach( elem => {
+                    console.log(elem)
+                    s+="<tr><td>Sor: " + elem.idate+ "</td></tr>"
+                })
+            } else res.send( {epty: true} )
+            s+="</table>asdasd</body></html>"
+            res.pdfFromHTML({
+                filename: 'generated.pdf',
+                htmlContent: s,
+                options: {}
+            })
+        } )
+
+
+
+    }
+)
+
 app.post("/delip", (req, res) => {
   Idopont.findById(req.body.tid).remove().exec((err,cucc) => {
       res.send({jo: cucc.result.ok})
