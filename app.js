@@ -228,9 +228,6 @@ app.get( '/topdf', (req, res) => {
                 options: {}
             })
         } )
-
-
-
     }
 )
 
